@@ -17,8 +17,8 @@ class SimpleCollectionTest {
                 .contains(1, 5, 4)
                 /*содержит это в любом порядке, дубликаты не важны:*/
                 .containsOnly(1, 5, 4, 3)
-        /*содержит только это и только в указанном порядке:*/
-            .containsExactly(1, 1, 3, 4, 5)
+                /*содержит только это и только в указанном порядке:*/
+                .containsExactly(1, 1, 3, 4, 5)
                 /*содержит только это в любом порядке:*/
                 .containsExactlyInAnyOrder(5, 1, 3, 4, 1)
                 /*содержит хотя бы один из:*/
@@ -32,6 +32,7 @@ class SimpleCollectionTest {
                 /* содержит последовательность:*/
                 .containsSequence(1, 3);
     }
+
     @Test
     void satisfyAssert() {
         SimpleCollection<Integer> simpleCollection = new SimpleCollection<>(1, 1, 3, 4, 5);
@@ -50,6 +51,7 @@ class SimpleCollectionTest {
                 .anyMatch(e -> e == 5)
                 .noneMatch(e -> e < 1);
     }
+
     @Test
     void checkNavigationList() {
         SimpleCollection<Integer> simpleCollection = new SimpleCollection<>(1, 1, 3, 4, 5);
@@ -62,6 +64,7 @@ class SimpleCollectionTest {
         assertThat(simpleCollection).last().isNotNull()
                 .isEqualTo(5);
     }
+
     @Test
     void checkFilteredList() {
         SimpleCollection<Integer> simpleCollection = new SimpleCollection<>(1, 1, 3, 4, 5);
@@ -72,6 +75,7 @@ class SimpleCollectionTest {
                 .hasSize(2)
                 .first().isEqualTo(1);
     }
+
     @Test
     void assertMap() {
         Map<Integer, String> map = Map.of(
