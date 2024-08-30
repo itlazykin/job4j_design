@@ -9,13 +9,13 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     public void add(T value) {
         if (size == 0) {
-            head = new ForwardLinked.Node<>(value, null);
+            head = new Node<>(value, null);
         } else {
-            ForwardLinked.Node<T> newNode = head;
+            Node<T> newNode = head;
             while (newNode.next != null) {
                 newNode = newNode.next;
             }
-            newNode.next = new ForwardLinked.Node<>(value, null);
+            newNode.next = new Node<>(value, null);
         }
         size++;
         modCount++;
@@ -23,7 +23,7 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     public T get(int index) {
         Objects.checkIndex(index, size);
-        ForwardLinked.Node<T> newNode = head;
+        Node<T> newNode = head;
         for (int i = 1; i <= index; i++) {
             newNode = newNode.next;
         }
@@ -31,12 +31,12 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public T deleteFirst() {
-        final ForwardLinked.Node<T> f = head;
+        final Node<T> f = head;
         if (f == null) {
             throw new NoSuchElementException();
         }
         final T element = f.item;
-        final ForwardLinked.Node<T> next = f.next;
+        final Node<T> next = f.next;
         f.item = null;
         f.next = null;
         head = next;
@@ -48,7 +48,7 @@ public class ForwardLinked<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private ForwardLinked.Node<T> currentNode = head;
+            private Node<T> currentNode = head;
             private int expectedModCount = modCount;
 
             @Override
@@ -73,9 +73,9 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     private static class Node<T> {
         private T item;
-        private ForwardLinked.Node<T> next;
+        private Node<T> next;
 
-        Node(T element, ForwardLinked.Node<T> next) {
+        Node(T element, Node<T> next) {
             this.item = element;
             this.next = next;
         }
