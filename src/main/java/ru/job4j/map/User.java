@@ -11,8 +11,15 @@ public class User {
     private final Calendar birthday;
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name, children, birthday);
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        User user = (User) object;
+        return children == user.children && Objects.equals(name, user.name) && Objects.equals(birthday, user.birthday);
     }
 
     public User(String name, int children, Calendar birthday) {
@@ -45,6 +52,9 @@ public class User {
         System.out.println("Проверка по hashCode была выполнена, тк мы его переопределили и пары были в одной корзине");
         System.out.println("Проверка по equals производилась, но т.к. этот метод не переопределен в классе юзер, то "
                 + "происходило сравнение ссылок на объект, а не значений объекта.");
+        System.out.println();
+        System.out.println("Переопределить только equals");
+        System.out.println("Пары попали в разные корзины, проверка выполняется только когда пары в одной корзине");
         System.out.println();
     }
 }
