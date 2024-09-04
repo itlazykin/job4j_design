@@ -38,6 +38,7 @@ class SimpleArraySetTest {
         assertThat(set.contains(null)).isTrue();
         assertThat(set.add(null)).isFalse();
     }
+
     @Test
     void whenAddAfterGetIteratorHasNextThenMustBeException() {
         SimpleSet<Integer> set = new SimpleArraySet<>();
