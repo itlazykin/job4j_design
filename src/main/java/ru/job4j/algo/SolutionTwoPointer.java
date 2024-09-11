@@ -3,6 +3,8 @@ package ru.job4j.algo;
 import java.util.Arrays;
 
 /**
+ * 977. Squares of a Sorted Array
+ * Решение получше :
  * public int[] sortedSquares(int[] nums) {
  *     final int[] res = new int[nums.length];
  *     int left = 0;
