@@ -8,11 +8,11 @@ import java.util.Arrays;
  *     int left = 0;
  *     int right = nums.Length - 1;
  *     int index = nums.Length - 1;
- *     // Сравнение квадратов элементов с обоих концов массива
+ *      Сравнение квадратов элементов с обоих концов массива
  *     while (left <= right) {
  *         int numLeft = nums[left] * nums[left];
  *         int numRight = nums[right] * nums[right];
- *         // Вставка большего квадрата в текущую позицию с конца
+ *          Вставка большего квадрата в текущую позицию с конца
  *         if (numLeft > numRight) {
  *             res[index--] = numLeft;
  *             left++;
