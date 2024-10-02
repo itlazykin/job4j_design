@@ -1,4 +1,4 @@
-package ru.job4j.algo.sorted;
+package ru.job4j.algo.sort;
 
 import org.junit.jupiter.api.Test;
 
