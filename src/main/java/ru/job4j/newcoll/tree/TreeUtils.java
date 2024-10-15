@@ -2,10 +2,9 @@ package ru.job4j.newcoll.tree;
 
 import ru.job4j.collection.Queue;
 import ru.job4j.collection.SimpleQueue;
+import ru.job4j.collection.SimpleStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class TreeUtils<T> {
     /**
@@ -17,7 +16,7 @@ public class TreeUtils<T> {
      */
     public int countNode(Node<T> root) {
         if (Objects.isNull(root)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Root cannot be null");
         }
         int result = 0;
         Queue<Node<T>> queue = new SimpleQueue<>();
@@ -39,7 +38,7 @@ public class TreeUtils<T> {
      */
     public Iterable<T> findAll(Node<T> root) {
         if (Objects.isNull(root)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Root cannot be null");
         }
         List<T> result = new ArrayList<>();
         Queue<Node<T>> queue = new SimpleQueue<>();
@@ -50,5 +49,85 @@ public class TreeUtils<T> {
             node.getChildren().forEach(queue::push);
         }
         return result;
+    }
+
+    /**
+     * Метод обходит дерево root и добавляет к узлу с ключом parent
+     * новый узел с ключом child, при этом на момент добавления узел с ключом parent
+     * уже должен существовать в дереве, а узла с ключом child в дереве быть не должно
+     *
+     * @param root   корень дерева
+     * @param parent ключ узла-родителя
+     * @param child  ключ узла-потомка
+     * @return true если добавление произошло успешно и false в обратном случае.
+     * @throws IllegalArgumentException если root является null
+     */
+    public boolean add(Node<T> root, T parent, T child) {
+        if (Objects.isNull(root)) {
+            throw new IllegalArgumentException("Root cannot be null");
+        }
+        Optional<Node<T>> optionalParent = findByKey(root, parent);
+        Optional<Node<T>> optionalChild = findByKey(root, child);
+        if (optionalParent.isPresent()) {
+            Node<T> node = optionalParent.get();
+            if (optionalChild.isEmpty()) {
+                node.getChildren().add(new Node<>(child));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Метод обходит дерево root и возвращает первый найденный узел с ключом key
+     *
+     * @param root корень дерева
+     * @param key  ключ поиска
+     * @return узел с ключом key, завернутый в объект типа Optional
+     * @throws IllegalArgumentException если root является null
+     */
+    public Optional<Node<T>> findByKey(Node<T> root, T key) {
+        if (Objects.isNull(root)) {
+            throw new IllegalArgumentException("Root cannot be null");
+        }
+        SimpleStack<Node<T>> stack = new SimpleStack<>();
+        Optional<Node<T>> result = Optional.empty();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node<T> current = stack.pop();
+            if (current.getValue().equals(key)) {
+                result = Optional.of(current);
+            }
+            for (Node<T> child : current.getChildren()) {
+                stack.push(child);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Метод обходит дерево root и возвращает первый найденный узел с ключом key,
+     * при этом из дерева root удаляется все поддерево найденного узла
+     *
+     * @param root корень дерева
+     * @param key  ключ поиска
+     * @return узел с ключом key, завернутый в объект типа Optional
+     * @throws IllegalArgumentException если root является null
+     */
+    public Optional<Node<T>> divideByKey(Node<T> root, T key) {
+        if (Objects.isNull(root)) {
+            throw new IllegalArgumentException("Root cannot be null");
+        }
+        if (root.getValue().equals(key)) {
+            return Optional.of(root);
+        }
+        for (Node<T> child : new ArrayList<>(root.getChildren())) {
+            Optional<Node<T>> result = divideByKey(child, key);
+            if (result.isPresent()) {
+                root.getChildren().remove(child);
+                return result;
+            }
+        }
+        return Optional.empty();
     }
 }
