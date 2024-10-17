@@ -3,6 +3,7 @@ package ru.job4j.collection.binarytree;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BinarySearchTreeTest {
     @Test
@@ -62,7 +63,7 @@ class BinarySearchTreeTest {
     @Test
     void whenAddMinimumIsNotEndThenOk() {
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-        for (int element : new int[]{4, 2, 6, 3, 5, 7 }) {
+        for (int element : new int[]{4, 2, 6, 3, 5, 7}) {
             tree.put(element);
         }
         assertThat(tree.minimum()).isEqualTo(2);
@@ -96,5 +97,46 @@ class BinarySearchTreeTest {
         }
         assertThat(tree.inPostOrder()).hasSize(7)
                 .containsExactly(1, 3, 2, 5, 7, 6, 4);
+    }
+
+    @Test
+    public void whenRemoveNonExistentNodeThanFalse() {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.put(10);
+        bst.put(5);
+        bst.put(15);
+        assertFalse(bst.remove(20));
+    }
+
+    @Test
+    public void whenRemoveRootNode() {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.put(10);
+        bst.put(5);
+        bst.put(15);
+        assertTrue(bst.remove(10));
+        assertFalse(bst.contains(10));
+    }
+
+    @Test
+    public void whenRemoveNodeWithOneChildThanOk() {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.put(10);
+        bst.put(5);
+        bst.put(15);
+        assertTrue(bst.remove(15));
+        assertFalse(bst.contains(15));
+    }
+
+    @Test
+    public void whenRemoveNodeWithTwoChildrenThanOk() {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.put(10);
+        bst.put(5);
+        bst.put(15);
+        bst.put(3);
+        bst.put(7);
+        assertTrue(bst.remove(5));
+        assertFalse(bst.contains(5));
     }
 }
