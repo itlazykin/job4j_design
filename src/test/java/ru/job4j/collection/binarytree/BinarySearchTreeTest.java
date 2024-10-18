@@ -139,4 +139,28 @@ class BinarySearchTreeTest {
         assertTrue(bst.remove(5));
         assertFalse(bst.contains(5));
     }
+
+    @Test
+    void whenContainsThanOk() {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.put(10);
+        bst.put(5);
+        bst.put(15);
+        assertTrue(bst.contains(10));
+        assertTrue(bst.contains(5));
+        assertTrue(bst.contains(15));
+        assertFalse(bst.contains(20));
+    }
+
+    @Test
+    void whenClearThanOk() {
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.put(10);
+        bst.put(5);
+        bst.put(15);
+        bst.clear();
+        assertFalse(bst.contains(10));
+        assertFalse(bst.contains(5));
+        assertFalse(bst.contains(15));
+    }
 }
