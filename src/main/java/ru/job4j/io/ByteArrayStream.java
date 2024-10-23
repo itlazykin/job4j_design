@@ -12,7 +12,6 @@ public class ByteArrayStream {
         int data;
         while ((data = stream.read()) != -1) {
             System.out.println((char) data);
-
         }
         System.out.println();
         String string = "123456789";
