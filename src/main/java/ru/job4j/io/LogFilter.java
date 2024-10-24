@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,8 +39,33 @@ public class LogFilter {
         return filter;
     }
 
+    /**
+     * Сохраняет отфильтрованные строки из лог-файла в указанный выходной файл.
+     * <p>
+     * Метод сначала вызывает {@link #filter()}, чтобы получить список строк,
+     * в которых предпоследнее значение равно "404". Затем он записывает эти строки
+     * в указанный файл с использованием {@link PrintWriter}.
+     * Если при записи возникает ошибка ввода-вывода, она обрабатывается, и
+     * выводится сообщение об ошибке в стандартный поток ошибок.
+     * </p>
+     *
+     * @param out путь к выходному файлу, в который будут записаны отфильтрованные строки.
+     *            Если файл не существует, он будет создан автоматически.
+     * @throws RuntimeException если возникнет ошибка ввода-вывода при записи в файл.
+     */
+    public void saveTo(String out) {
+        var data = filter();
+        try (PrintWriter output = new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(out)))) {
+            data.forEach(output::println);
+        } catch (IOException e) {
+            System.err.println("Input/output error" + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter("data/log.txt");
-        logFilter.filter().forEach(System.out::println);
+        logFilter.saveTo("data/404.txt");
     }
 }
