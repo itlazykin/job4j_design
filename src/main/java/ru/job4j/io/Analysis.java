@@ -29,7 +29,7 @@ public class Analysis {
                     start = time;
                     serverDown = true;
                 } else if ((status.equals("200") || status.equals("300")) && serverDown) {
-                    out.println(start + ";" + time + ";");
+                    out.printf("%s;%s;%n", start, time);
                     serverDown = false;
                 }
             }
