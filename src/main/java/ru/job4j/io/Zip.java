@@ -20,7 +20,7 @@ public class Zip {
      * @param sources список файлов, которые нужно упаковать
      * @param target  файл-архив, в который будет произведена упаковка
      */
-    public void packFiles(List<Path> sources, File target) {
+    public static void packFiles(List<Path> sources, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
             for (Path source : sources) {
                 zip.putNextEntry(new ZipEntry(String.valueOf(source)));
@@ -52,45 +52,15 @@ public class Zip {
     }
 
     /**
-     * Выполняет упаковку файлов на основе параметров командной строки.
-     * <p>
-     * Параметры:
-     * <ul>
-     *     <li>{@code d} — директория, в которой выполняется поиск файлов</li>
-     *     <li>{@code e} — расширение файлов, которые нужно исключить из архивации</li>
-     *     <li>{@code o} — имя выходного ZIP-архива</li>
-     * </ul>
-     *
-     * @param args массив аргументов командной строки
-     * @throws IOException если возникает ошибка при работе с файлами
-     */
-    public void zipAll(String[] args) throws IOException {
-        ArgsName argsName = ArgsName.of(args);
-        validArgs(argsName);
-        List<Path> sources = Search.search(Paths.get(argsName.get("d")),
-                path -> !path.toFile().getName().endsWith(argsName.get("e")));
-        packFiles(sources, Files.createFile(Paths.get(argsName.get("o"))).toFile());
-    }
-
-    /**
      * Выполняет проверку переданных аргументов командной строки.
      *
      * @param args объект {@code ArgsName}, содержащий аргументы
      * @throws IllegalArgumentException если аргументы не соответствуют требованиям
      */
-    private void validArgs(ArgsName args) {
+    private static void validArgs(ArgsName args) {
         String directory = args.get("d");
         String exclude = args.get("e");
         String output = args.get("o");
-        if (directory == null) {
-            throw new IllegalArgumentException("Directory argument is required.");
-        }
-        if (exclude == null) {
-            throw new IllegalArgumentException("Exclude argument is required.");
-        }
-        if (output == null) {
-            throw new IllegalArgumentException("Output argument is required.");
-        }
         Path path = Paths.get(directory);
         if (!Files.exists(path)) {
             throw new IllegalArgumentException(String.format("The path \"%s\" does not exist.", path));
@@ -115,6 +85,10 @@ public class Zip {
                 new File("./pom.xml"),
                 new File("./pom.zip")
         );
-        zip.zipAll(args);
+        ArgsName argsName = ArgsName.of(args);
+        validArgs(argsName);
+        List<Path> sources = Search.search(Paths.get(argsName.get("d")),
+                path -> !path.toFile().getName().endsWith(argsName.get("e")));
+        packFiles(sources, Files.createFile(Paths.get(argsName.get("o"))).toFile());
     }
 }
