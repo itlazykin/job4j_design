@@ -48,10 +48,6 @@ public class Search {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
         }
         String start = args[0];
-        String extension = args[1];
-        if (start.isBlank() || extension.isBlank()) {
-            throw new IllegalArgumentException("Arguments can not be empty.");
-        }
         Path startFolder = Paths.get(start);
         if (!Files.isDirectory(startFolder) || !Files.exists(startFolder)) {
             throw new IllegalArgumentException(String.format("The file in directory \"%s\" not exist.", startFolder));
