@@ -8,7 +8,18 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Класс {@code Zip} предоставляет функционал для упаковки файлов в архив формата ZIP.
+ * Он позволяет упаковать один или несколько файлов, а также создать архив на основе
+ * параметров, переданных через командную строку.
+ */
 public class Zip {
+    /**
+     * Упаковывает список файлов в указанный ZIP-архив.
+     *
+     * @param sources список файлов, которые нужно упаковать
+     * @param target  файл-архив, в который будет произведена упаковка
+     */
     public void packFiles(List<Path> sources, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
             for (Path source : sources) {
@@ -23,6 +34,12 @@ public class Zip {
         }
     }
 
+    /**
+     * Упаковывает один файл в указанный ZIP-архив.
+     *
+     * @param source файл, который нужно упаковать
+     * @param target файл-архив, в который будет произведена упаковка
+     */
     public void packSingleFile(File source, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
             zip.putNextEntry(new ZipEntry(source.getPath()));
@@ -34,6 +51,19 @@ public class Zip {
         }
     }
 
+    /**
+     * Выполняет упаковку файлов на основе параметров командной строки.
+     * <p>
+     * Параметры:
+     * <ul>
+     *     <li>{@code d} — директория, в которой выполняется поиск файлов</li>
+     *     <li>{@code e} — расширение файлов, которые нужно исключить из архивации</li>
+     *     <li>{@code o} — имя выходного ZIP-архива</li>
+     * </ul>
+     *
+     * @param args массив аргументов командной строки
+     * @throws IOException если возникает ошибка при работе с файлами
+     */
     public void zipAll(String[] args) throws IOException {
         ArgsName argsName = ArgsName.of(args);
         validArgs(argsName);
@@ -42,6 +72,12 @@ public class Zip {
         packFiles(sources, Files.createFile(Paths.get(argsName.get("o"))).toFile());
     }
 
+    /**
+     * Выполняет проверку переданных аргументов командной строки.
+     *
+     * @param args объект {@code ArgsName}, содержащий аргументы
+     * @throws IllegalArgumentException если аргументы не соответствуют требованиям
+     */
     private void validArgs(ArgsName args) {
         String directory = args.get("d");
         String exclude = args.get("e");
