@@ -43,21 +43,8 @@ public class ArgsName {
      */
     private void parse(String[] args) {
         for (String arg : args) {
-            if (!arg.startsWith("-")) {
-                throw new IllegalArgumentException(
-                        "Error: This argument '" + arg + "' does not start with a '-' character");
-            }
-            if (!arg.contains("=")) {
-                throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain an equal sign");
-            }
-
+            validateArgument(arg);
             String[] parts = arg.substring(1).split("=", 2);
-            if (parts[0].isBlank()) {
-                throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
-            }
-            if (parts[1].isBlank()) {
-                throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a value");
-            }
             values.put(parts[0], parts[1]);
         }
     }
@@ -76,6 +63,29 @@ public class ArgsName {
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
+    }
+
+    /**
+     * Выполняет валидацию аргумента командной строки.
+     *
+     * @param arg аргумент для проверки
+     * @throws IllegalArgumentException если аргумент не соответствует требованиям
+     */
+    private void validateArgument(String arg) {
+        if (!arg.startsWith("-")) {
+            throw new IllegalArgumentException(
+                    "Error: This argument '" + arg + "' does not start with a '-' character");
+        }
+        if (!arg.contains("=")) {
+            throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain an equal sign");
+        }
+        String[] parts = arg.substring(1).split("=", 2);
+        if (parts[0].isBlank()) {
+            throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
+        }
+        if (parts[1].isBlank()) {
+            throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a value");
+        }
     }
 
     public static void main(String[] args) {
