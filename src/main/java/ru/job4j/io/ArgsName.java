@@ -4,11 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Класс парсит аргументы в формате '-ключ=значение' и сохранять их в Map<String, String>.
+ * Класс {@code ArgsName} предоставляет функционал для парсинга аргументов командной строки
+ * в формате {@code -ключ=значение}. Он позволяет удобно получать значения по переданным ключам.
  */
 public class ArgsName {
+    /**
+     * Хранит пары ключ-значение, полученные из аргументов командной строки.
+     */
     private final Map<String, String> values = new HashMap<>();
 
+    /**
+     * Возвращает значение, соответствующее переданному ключу.
+     *
+     * @param key ключ, по которому нужно получить значение
+     * @return значение, соответствующее указанному ключу
+     * @throws IllegalArgumentException если ключ отсутствует в аргументах
+     */
     public String get(String key) {
         String value = values.get(key);
         if (value == null) {
@@ -18,13 +29,18 @@ public class ArgsName {
     }
 
     /**
-     * Разбирает массив строк в values.
-     * Ключ — это строка после - и перед =.
-     * Значение — это строка после =.
+     * Парсит массив аргументов командной строки и сохраняет их в виде пар ключ-значение.
+     * <p>
+     * Требования к аргументам:
+     * <ul>
+     *     <li>Аргумент должен начинаться с символа {@code -}.</li>
+     *     <li>Аргумент должен содержать символ {@code =} для разделения ключа и значения.</li>
+     *     <li>Ключ и значение не могут быть пустыми или состоять только из пробелов.</li>
+     * </ul>
      *
-     * @param args массив параметров.
+     * @param args массив аргументов командной строки
+     * @throws IllegalArgumentException если аргумент не соответствует указанным требованиям
      */
-
     private void parse(String[] args) {
         for (String arg : args) {
             if (!arg.startsWith("-")) {
@@ -46,6 +62,13 @@ public class ArgsName {
         }
     }
 
+    /**
+     * Создает экземпляр {@code ArgsName} и выполняет парсинг переданных аргументов.
+     *
+     * @param args массив аргументов командной строки
+     * @return объект {@code ArgsName} с проанализированными аргументами
+     * @throws IllegalArgumentException если аргументы не были переданы
+     */
     public static ArgsName of(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException("Arguments not passed to program");
