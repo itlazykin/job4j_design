@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.StringJoiner;
 
 public class Analysis {
     /**
@@ -29,7 +30,9 @@ public class Analysis {
                     start = time;
                     serverDown = true;
                 } else if ((status.equals("200") || status.equals("300")) && serverDown) {
-                    out.printf("%s;%s;%n", start, time);
+                    StringJoiner joiner = new StringJoiner(";", "", ";");
+                    joiner.add(start).add(time);
+                    out.println(joiner);
                     serverDown = false;
                 }
             }
