@@ -2,7 +2,6 @@ package ru.job4j.io.tregulove;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Objects;
 
 public class FileWriterEx {
     public static void main(String[] args) throws IOException {
@@ -12,17 +11,13 @@ public class FileWriterEx {
                 Но нельзя соблазнить мужчину,
                 У которого есть любимая женщина.
                 """;
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("test1");
+        try (FileWriter writer = new FileWriter("test1")) {
             for (int i = 0; i < rubai.length(); i++) {
                 writer.write(rubai.charAt(i));
             }
             System.out.println("Done!");
         } catch (IOException e) {
             System.err.println("In/out error" + e.getMessage());
-        } finally {
-            Objects.requireNonNull(writer).close();
         }
     }
 }
