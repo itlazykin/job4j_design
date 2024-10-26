@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Для вывода всех файлов в консоль.
+ * Для вывода файлов в консоль.
  */
 public class DuplicatesVisitor  extends SimpleFileVisitor<Path> {
     private final Map<FileProperty, List<Path>> filesMap = new HashMap<>();
