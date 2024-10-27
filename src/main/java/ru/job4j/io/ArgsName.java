@@ -71,7 +71,8 @@ public class ArgsName {
      * @param arg аргумент для проверки
      * @throws IllegalArgumentException если аргумент не соответствует требованиям
      */
-    private void validateArgument(String arg) {
+    private String[] validateArgument(String arg) {
+        String[] parts = arg.substring(1).split("=", 2);
         if (!arg.startsWith("-")) {
             throw new IllegalArgumentException(
                     "Error: This argument '" + arg + "' does not start with a '-' character");
@@ -79,13 +80,13 @@ public class ArgsName {
         if (!arg.contains("=")) {
             throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain an equal sign");
         }
-        String[] parts = arg.substring(1).split("=", 2);
         if (parts[0].isBlank()) {
             throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
         }
         if (parts[1].isBlank()) {
             throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a value");
         }
+        return parts;
     }
 
     public static void main(String[] args) {
