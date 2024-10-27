@@ -44,8 +44,13 @@ public class ArgsName {
     private void parse(String[] args) {
         for (String arg : args) {
             validateArgument(arg);
-            String[] parts = arg.substring(1).split("=", 2);
-            values.put(parts[0], parts[1]);
+            int equalIndex = arg.indexOf('=');
+            if (equalIndex == -1) {
+                throw new IllegalArgumentException("Аргумент должен содержать '=': " + arg);
+            }
+            String key = arg.substring(1, equalIndex);
+            String value = arg.substring(equalIndex + 1);
+            values.put(key, value);
         }
     }
 
