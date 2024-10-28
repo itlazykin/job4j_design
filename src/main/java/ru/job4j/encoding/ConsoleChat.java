@@ -39,7 +39,7 @@ public class ConsoleChat {
                 log.add("");
                 saveLog(log);
             }
-            if (action.equals(STOP) || action.equals(OUT)) {
+            if (STOP.equals(action) || OUT.equals(action)) {
                 continue;
             }
             String botResponse = phrases.get(new Random().nextInt(phrases.size()));
