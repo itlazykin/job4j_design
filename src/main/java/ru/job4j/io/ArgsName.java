@@ -43,14 +43,8 @@ public class ArgsName {
      */
     private void parse(String[] args) {
         for (String arg : args) {
-            validateArgument(arg);
-            int equalIndex = arg.indexOf('=');
-            if (equalIndex == -1) {
-                throw new IllegalArgumentException("Аргумент должен содержать '=': " + arg);
-            }
-            String key = arg.substring(1, equalIndex);
-            String value = arg.substring(equalIndex + 1);
-            values.put(key, value);
+            String[] parts = validateArgument(arg);
+            values.put(parts[0], parts[1]);
         }
     }
 
