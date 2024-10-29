@@ -9,12 +9,37 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.*;
 
+/**
+ * Класс {@code CSVReader} предназначен для чтения и фильтрации данных из CSV-файла на основе заданных параметров.
+ *
+ * <p>Программа ожидает следующие аргументы:</p>
+ * <ul>
+ *     <li>{@code path} — путь к файлу CSV.</li>
+ *     <li>{@code delimiter} — разделитель, используемый в CSV (например, запятая или точка с запятой).</li>
+ *     <li>{@code out} — путь к файлу для сохранения результата или {@code stdout} для вывода в консоль.</li>
+ *     <li>{@code filter} — список колонок, которые необходимо отфильтровать.</li>
+ * </ul>
+ *
+ * <p>Пример использования:</p>
+ * <pre>{@code
+ * java CSVReader path=data.csv delimiter=, out=stdout filter=name,age
+ * }</pre>
+ *
+ * <p>Класс обеспечивает валидацию аргументов, чтение данных, фильтрацию по указанным колонкам
+ * и запись результата в указанный файл или вывод в консоль.</p>
+ */
 public class CSVReader {
     public static final String PATH = "path";
     public static final String DELIMITER = "delimiter";
     public static final String OUT = "out";
     public static final String FILTER = "filter";
 
+    /**
+     * Метод обрабатывает аргументы и выполняет чтение, фильтрацию и запись данных.
+     *
+     * @param argsName объект {@code ArgsName}, содержащий аргументы командной строки.
+     * @throws IOException если возникла ошибка при чтении или записи файла.
+     */
     public static void handle(ArgsName argsName) throws IOException {
         List<String> filterArgs = new ArrayList<>();
         var scanner = new Scanner(
@@ -32,6 +57,14 @@ public class CSVReader {
         Files.write(Path.of(argsName.get(OUT)), filteredRows);
     }
 
+    /**
+     * Фильтрует строки CSV-файла на основе указанных колонок.
+     *
+     * @param allRows    все строки из CSV-файла.
+     * @param filterArgs список колонок для фильтрации.
+     * @param delimiter  разделитель, используемый в CSV.
+     * @return список отфильтрованных строк.
+     */
     private static List<String> filter(List<String> allRows, List<String> filterArgs, String delimiter) {
         List<String> columnsName = parseString(allRows.get(0), delimiter);
         List<Integer> indexes = findColumns(columnsName, filterArgs);
@@ -47,6 +80,13 @@ public class CSVReader {
         return filteredRows;
     }
 
+    /**
+     * Находит индексы колонок, которые должны быть отфильтрованы.
+     *
+     * @param columnsName список всех колонок.
+     * @param filterArgs  список колонок для фильтрации.
+     * @return список индексов выбранных колонок.
+     */
     private static List<Integer> findColumns(List<String> columnsName, List<String> filterArgs) {
         List<Integer> indexes = new ArrayList<>();
         for (String filter : filterArgs) {
@@ -58,6 +98,13 @@ public class CSVReader {
         return indexes;
     }
 
+    /**
+     * Парсит строку CSV в список значений с учетом разделителя.
+     *
+     * @param row       строка CSV.
+     * @param delimiter разделитель.
+     * @return список значений строки.
+     */
     private static List<String> parseString(String row, String delimiter) {
         List<String> result = new ArrayList<>();
         var scanner = new Scanner(new CharArrayReader(row.toCharArray())).useDelimiter(delimiter);
@@ -80,6 +127,12 @@ public class CSVReader {
         return result;
     }
 
+    /**
+     * Выполняет валидацию аргументов, переданных программе.
+     *
+     * @param argsName объект {@code ArgsName}, содержащий аргументы командной строки.
+     * @throws IllegalArgumentException если один из аргументов недействителен.
+     */
     public static void validArgsToReader(ArgsName argsName) {
         String input = argsName.get(PATH);
         Path inputPath = Path.of(input);
