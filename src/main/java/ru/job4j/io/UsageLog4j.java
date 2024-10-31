@@ -7,14 +7,10 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        String name = "Denis Lazykin";
-        byte age = 35;
-        short height = 183;
-        int weight = 70;
-        long neurones = 86_000_000_000L;
-        float hair = 100_000F;
-        double bacteria = 420.24_000_000_000_000D;
-        LOG.debug("User info name : {}, age : {}, height : {}, weight : {}, neurones : {}, hair : {}, bacteria : {}",
-                name, age, height, weight, neurones, hair, bacteria);
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+            LOG.error("Exception in log example", e);
+        }
     }
 }
