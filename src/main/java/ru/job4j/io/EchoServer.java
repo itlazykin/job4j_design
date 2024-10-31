@@ -20,7 +20,7 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String in = input.readLine();
-                    if ("/?msg=Exit".contains(in)) {
+                    if (in.contains("/?msg=Exit")) {
                         System.out.println(in);
                         server.close();
                         break;
