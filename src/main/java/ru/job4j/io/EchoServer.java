@@ -20,7 +20,7 @@ public class EchoServer {
                          string != null && !string.isEmpty();
                          string = input.readLine()) {
                         System.out.println(string);
-                        if (string.contains("/?msg=Bye")) {
+                        if ("/?msg=Bye".contains(string)) {
                             System.out.println("Good bye.See you next time.");
                             server.close();
                             break;
