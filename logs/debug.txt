@@ -1,0 +1,2 @@
+2024-10-31 22:33:41,623 DEBUG ru.job4j.io.UsageLog4j:main:19 - User info name : Denis Lazykin, age : 35, height : 183, weight : 70, neurones : 86000000000, hair : 100000.0, bacteria : 420.24, gender : M, learnJava : true
+2024-10-31 22:34:09,783 DEBUG ru.job4j.io.UsageLog4j:main:19 - User info name : Denis Lazykin, age : 35, height : 183, weight : 70, neurones : 86000000000, hair : 100000.0, bacteria : 420.24, gender : M, learnJava : true
