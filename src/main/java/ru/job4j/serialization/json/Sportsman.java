@@ -16,6 +16,22 @@ public class Sportsman {
         this.rewards = rewards;
     }
 
+    public boolean isRetired() {
+        return retired;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public String[] getRewards() {
+        return rewards;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
