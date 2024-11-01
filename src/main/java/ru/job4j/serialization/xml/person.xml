@@ -1,8 +1,0 @@
-<?xml version="1.1" encoding="UTF-8" ?>
-<person sex="true" age="35">
-    <contact phone="+7(420)420 - 04 - 20"/>
-    <statuses>
-        <status>Student</status>
-        <status>Married</status>
-    </statuses>
-</person>

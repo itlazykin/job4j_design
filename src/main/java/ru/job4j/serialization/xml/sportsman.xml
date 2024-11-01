@@ -1,0 +1,10 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<sportsman retired="false" name="Leo Messi">
+    <team name ="Inter Miami"/>
+    <rewards>
+        <status>Golden Ball</status>
+        <status>Golden Boy</status>
+        <status>Champions League Winner</status>
+        <status>World Cup winner</status>
+    </rewards>
+</sportsman>
