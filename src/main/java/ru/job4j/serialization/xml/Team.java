@@ -1,7 +1,16 @@
 package ru.job4j.serialization.xml;
 
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "team")
 public class Team {
-    private final String name;
+    @XmlAttribute
+    private String name;
+
+    public Team() {
+
+    }
 
     public Team(String name) {
         this.name = name;
