@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class CyclicIterator<T> implements Iterator<T> {
-    private List<T> data;
+    private final List<T> data;
     private Iterator<T> cursor;
 
     public CyclicIterator(List<T> data) {
