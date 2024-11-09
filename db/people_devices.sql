@@ -1,21 +1,21 @@
-INSERT INTO devices (name, price)
-VALUES
+insert into devices (name, price)
+values
     ('Ноутбук', 8000.00),
     ('Смотрфон', 4000.00),
     ('Планшет', 2000.00),
     ('Умные часы', 1500.00),
     ('Персональный компьютер', 100000.00);
 
-INSERT INTO people (name)
-VALUES
+insert into people (name)
+values
     ('Денис'),
     ('Анастасия'),
     ('Артем'),
     ('Валерия'),
     ('Даник');
 
-INSERT INTO devices_people (device_id, people_id)
-VALUES
+insert into devices_people (device_id, people_id)
+values
     (1, 1),
     (2, 1),
     (3, 2),
@@ -25,22 +25,31 @@ VALUES
     (2, 5),
     (3, 5);
 
-SELECT AVG(price)
-FROM devices;
+/*
+Используя агрегатные функции вывести среднюю цену устройств
+*/
+select avg(price)
+from devices;
 
-SELECT p.name, AVG(d.price)
-FROM people AS p
-INNER JOIN devices_people AS dp
-ON p.id = dp.people_id
-INNER JOIN devices AS d
-ON dp.device_id = d.id
-GROUP BY p.name;
+/*
+Используя группировку вывести для каждого человека среднюю цену его устройств
+*/
+select p.name, avg(d.price)
+from people as p
+inner join devices_people as dp
+on p.id = dp.people_id
+inner join devices as d
+on dp.device_id = d.id
+group by p.name;
 
-SELECT p.name, AVG(d.price)
-FROM people AS p
-INNER JOIN devices_people AS dp
-ON p.id = dp.people_id
-INNER JOIN devices AS d
-ON dp.device_id = d.id
-GROUP BY p.name
-HAVING AVG(d.price) > 5000;
+/*
+Дополнить запрос п.4. условием, что средняя стоимость устройств должна быть больше 5000
+*/
+select p.name, avg(d.price)
+from people as p
+inner join devices_people as dp
+on p.id = dp.people_id
+inner join devices as d
+on dp.device_id = d.id
+group by p.name
+having avg(d.price) > 5000;
