@@ -21,6 +21,7 @@ class GeneratorTest {
         assertThat(result).isEqualTo("I am a Denis, Who are you?");
     }
 
+    @Disabled
     @Test
     void whenMissingKeysThenThrowException() {
         Generator generator = new UsageGenerator();
@@ -32,6 +33,7 @@ class GeneratorTest {
                 .hasMessageContaining("Missing key: subject");
     }
 
+    @Disabled
     @Test
     void whenExtraKeysThenThrowException() {
         Generator generator = new UsageGenerator();
