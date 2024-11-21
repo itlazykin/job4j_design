@@ -8,8 +8,8 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Disabled
 class GeneratorTest {
-    @Disabled
     @Test
     void whenAllKeysArePresentThenGenerateCorrectString() {
         Generator generator = new UsageGenerator();
@@ -21,7 +21,6 @@ class GeneratorTest {
         assertThat(result).isEqualTo("I am a Denis, Who are you?");
     }
 
-    @Disabled
     @Test
     void whenMissingKeysThenThrowException() {
         Generator generator = new UsageGenerator();
@@ -33,7 +32,6 @@ class GeneratorTest {
                 .hasMessageContaining("Missing key: subject");
     }
 
-    @Disabled
     @Test
     void whenExtraKeysThenThrowException() {
         Generator generator = new UsageGenerator();
