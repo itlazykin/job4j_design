@@ -1,4 +1,4 @@
-package ru.job4j.ood.slp.task4915;
+package ru.job4j.ood.lsp.task4915;
 
 public class BankAccount {
     protected double balance;
