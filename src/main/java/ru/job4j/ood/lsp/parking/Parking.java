@@ -3,6 +3,10 @@ package ru.job4j.ood.lsp.parking;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс реализует логику парковки. Есть два типа мест: для легковых машин (carPlace) и для грузовиков (truckPlace).
+ * Если не хватает места для грузовика, его можно поставить на несколько мест для легковых машин.
+ */
 public class Parking implements ParkingSpot {
     private int carPlace;
     private int truckPlace;

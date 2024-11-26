@@ -1,5 +1,8 @@
 package ru.job4j.ood.lsp.parking;
 
+/**
+ * Реализует интерфейс Vehicle и задает размеры для грузовика.
+ */
 public class Truck implements Vehicle {
     private int truckSize;
 
