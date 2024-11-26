@@ -15,6 +15,12 @@ public abstract class AbstractStore implements Store {
         return result;
     }
 
+    /**
+     * Метод добавления продукта, который проверяет, подходит ли продукт для конкретного хранилища.
+     *
+     * @param product принимает продукт, для которого нужно рассчитать срок годности
+     * @return true, если продукт подходит для данного хранилища, если нет false.
+     */
     abstract public boolean accept(Food product);
 
     @Override

@@ -1,5 +1,9 @@
 package ru.job4j.ood.lsp.warehouse;
 
+/**
+ * Используется для продуктов, у которых срок годности истек на 25–75%.
+ * Также в магазине можно продавать продукты со скидкой, если их срок истекает на 75–100%.
+ */
 public class Shop extends AbstractStore {
     @Override
     public boolean accept(Food product) {

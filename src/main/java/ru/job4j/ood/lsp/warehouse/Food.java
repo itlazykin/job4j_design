@@ -40,6 +40,15 @@ public class Food {
         return discount;
     }
 
+    /**
+     * Вычисляет процент истечения срока годности продукта.
+     * Метод определяет, сколько времени прошло с момента создания продукта
+     * относительно полного срока годности. Процент рассчитывается как
+     * отношение прошедших дней к общему сроку годности.
+     *
+     * @return процент истечения срока годности, где 0 означает, что
+     * продукт только что создан, а 100 — что срок годности полностью истек.
+     */
     public double getPercentOfExpiry() {
         long totalLife = expiryDate.toEpochDay() - createDate.toEpochDay();
         long daysPassed = LocalDate.now().toEpochDay() - createDate.toEpochDay();
