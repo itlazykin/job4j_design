@@ -15,6 +15,21 @@ public class Parking implements ParkingSpot {
 
     @Override
     public boolean park(Vehicle vehicle) {
-        return false;
+        int vehicleSize = vehicle.getVehicleSize();
+        boolean parked = false;
+        if (vehicleSize == 1 && carPlace > 0) {
+            carPlace--;
+            vehicles.add(vehicle);
+            parked = true;
+        } else if (vehicleSize > 1 && truckPlace > 0) {
+            truckPlace--;
+            vehicles.add(vehicle);
+            parked = true;
+        } else if (vehicleSize > 1 && vehicleSize <= carPlace) {
+            carPlace -= vehicleSize;
+            vehicles.add(vehicle);
+            parked = true;
+        }
+        return parked;
     }
 }
