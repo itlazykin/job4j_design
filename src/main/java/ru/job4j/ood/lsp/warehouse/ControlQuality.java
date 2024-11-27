@@ -1,5 +1,6 @@
 package ru.job4j.ood.lsp.warehouse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,5 +27,17 @@ public class ControlQuality {
                 break;
             }
         }
+    }
+
+    /**
+     * Извлекает все продукты и перераспределяет их заново.
+     */
+    public void resortProducts() {
+        List<Food> prods = new ArrayList<>();
+        for (Store store : stores) {
+            prods.addAll(store.getStoreProducts());
+            store.deleteProducts();
+        }
+        prods.forEach(this::sort);
     }
 }

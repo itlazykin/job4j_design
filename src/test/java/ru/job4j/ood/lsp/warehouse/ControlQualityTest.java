@@ -66,4 +66,34 @@ class ControlQualityTest {
         assertTrue(trash.accept(food));
         assertTrue(food.getPercentOfExpiry() > 100);
     }
+
+    @Test
+    public void whenFoodsSortInStoreThanResort() {
+        Fruit apple = new Fruit("Apple",
+                LocalDate.now().minusDays(3),
+                LocalDate.now().plusDays(10),
+                150);
+        Meat beef = new Meat("Beef",
+                LocalDate.now().minusDays(7),
+                LocalDate.now().plusDays(8),
+                500);
+        Food not_fresh = new Food("Not fresh",
+                LocalDate.now().minusDays(10),
+                LocalDate.now(),
+                0);
+        var warehouse = new Warehouse();
+        var shop = new Shop();
+        var trash = new Trash();
+        ControlQuality quality = new ControlQuality(List.of(warehouse, shop, trash));
+        quality.sort(apple);
+        quality.sort(beef);
+        quality.sort(not_fresh);
+        quality.resortProducts();
+        assertTrue(warehouse.getStoreProducts().contains(apple));
+        assertEquals(1, warehouse.getStoreProducts().size());
+        assertTrue(shop.getStoreProducts().contains(beef));
+        assertEquals(1, shop.getStoreProducts().size());
+        assertTrue(trash.getStoreProducts().contains(not_fresh));
+        assertEquals(1, trash.getStoreProducts().size());
+    }
 }
